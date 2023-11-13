@@ -1,0 +1,8 @@
+<launch>
+      <node pkg="leap_hand" name="leaphand_node" type="leaphand_node.py" output="screen">
+            <param name="kP" type="double" value="800.0" />
+            <param name="kI" type="double" value="0.0" />
+            <param name="kD" type="double" value="200.0" />
+            <param name="curr_lim" type="double" value="500.0" />
+      </node>   
+</launch>
