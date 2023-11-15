@@ -6,7 +6,7 @@
 #### Hardware Setup
 - Connect 5v power to the hand (the dynamixels should light up during boot up.)
 - Connect the Micro USB cable to the hand (Do not use too many USB extensions)
-- Open [Dynamixel Wizard](https://emanual.robotis.com/docs/en/software/rplus1/dynamixel_wizard/) and find the correct port using the options button and put that in main.py or ros_example.py.
+- Open [Dynamixel Wizard](https://emanual.robotis.com/docs/en/software/rplus1/dynamixel_wizard/) and find the correct port using the options button and put that in main.py or ros_example.py.  Note, you cannot have Dynamixel wizard open while using the hand's API, the port will be "busy" with the other process.
 - On Ubuntu you can find the hand by ID using `/dev/serial/by-id` The ID will stay persistent on reboots.
 - We offically support Python and ROS, but other languages are supported by [Dynamixel SDK](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/).
 
