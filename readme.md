@@ -27,7 +27,7 @@
 - If some motors are missing, make sure they are IDed corrrectly and are connected to the U2D2.
 - If you get "overload error" and the motors are flashing red, then they have overloaded (self-collision etc). It should clear on a power cycle.  If it happens often, lower the current limits in the control code so that it does not happen as often.
 - If you get "jittery" motors, try lowering the P and D values, either in the roslaunch file or the python file.
-- If you feel the motors are too inaccurate, you can also try raising the P and D values depending on your task.
+- If you feel the motors are too inaccurate, you can also try raising the P and D values.
 
 #### Useful Tools:
 - MANO to LEAP joint angle mapping.
