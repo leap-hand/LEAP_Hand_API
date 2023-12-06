@@ -9,7 +9,7 @@
 - `mkdir -p ~/catkin_ws/src` (If you do not have a workspace from your current project)
 - Next, copy the ros_module folder from this Github into the newly created src folder.  Then:
 - `cd ~/catkin_ws/`
-- `pip install empy catkin_pkg pyyaml rospkg` 
+- `pip install empy==3.3.4 catkin_pkg pyyaml rospkg` 
 - `catkin_make`
 #### Setup Bashrc
 - `echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc`
