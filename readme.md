@@ -28,6 +28,9 @@
 - If you get "overload error" and the motors are flashing red, then they have overloaded (self-collision etc). It should clear on a power cycle.  If it happens often, lower the current limits in the control code so that it does not happen as often.
 - If you get "jittery" motors, try lowering the P and D values, either in the roslaunch file or the python file.
 - If you feel the motors are too inaccurate, you can also try raising the P and D values.
+- To improve atency on Ubuntu try these tips:
+  - https://github.com/ROBOTIS-GIT/DynamixelSDK/issues/288
+  - https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/  (USB Latency Setting)
 
 #### Useful Tools:
 - MANO to LEAP joint angle mapping.
