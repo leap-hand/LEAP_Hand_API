@@ -1,4 +1,4 @@
-## Welcome to the LEAP Hand Python SDK
+## Welcome to the LEAP Hand ROS1 SDK
 
 ### On Ubuntu
 - Install [ROS 1 Noetic](http://wiki.ros.org/ROS/Installation) normally first on Ubuntu 20.04.
