@@ -5,12 +5,11 @@
   <description>The leap_hand package</description>
 
   <maintainer email="anag@todo.todo">anag</maintainer>
-  <license>TODO</license>
+  <license>MIT</license>
 
   <depend>rclpy</depend>
   <depend>sensor_msgs</depend>
   <depend>std_msgs</depend>
-  <depend>leap_hand_interfaces</depend>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
   <build_depend>ament_cmake_python</build_depend>

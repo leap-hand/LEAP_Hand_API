@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """Communication using the DynamixelSDK."""
 ##This is based off of the dynamixel SDK
 import atexit

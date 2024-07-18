@@ -19,11 +19,6 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   DEPENDENCIES std_msgs
 )
 
-###################################
-## ament specific configuration  ##
-###################################
-ament_package()
-
 #############
 ## Install ##
 #############
@@ -34,10 +29,21 @@ install(PROGRAMS
   DESTINATION lib/${PROJECT_NAME}
 )
 
+# Install all Python scripts in the scripts directory
+file(GLOB SCRIPT_FILES scripts/*.py)
+install(PROGRAMS ${SCRIPT_FILES}
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 # Install launch files
 install(DIRECTORY launch/
   DESTINATION share/${PROJECT_NAME}/launch
 )
+
+###################################
+## ament specific configuration  ##
+###################################
+ament_package()
 
 #############
 ## Testing ##

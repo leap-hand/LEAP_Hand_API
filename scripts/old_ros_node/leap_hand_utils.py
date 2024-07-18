@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 '''
 Some utilities for LEAP Hand that help with converting joint angles between each convention.
 '''
@@ -23,9 +25,8 @@ def angle_safety_clip(joints):
 
 ###Sometimes it's useful to constrain the thumb more heavily(you have to implement here), but regular usually works good.
 def LEAPsim_limits(type = "regular"):
-    if type == "regular":
-        sim_min = np.array([-1.047, -0.314, -0.506, -0.366, -1.047, -0.314, -0.506, -0.366, -1.047, -0.314, -0.506, -0.366, -0.349, -0.47, -1.20, -1.34])
-        sim_max = np.array([1.047,    2.23,  1.885,  2.042,  1.047,   2.23,  1.885,  2.042,  1.047,   2.23,  1.885,  2.042,  2.094,  2.443, 1.90,  1.88])
+    sim_min = np.array([-1.047, -0.314, -0.506, -0.366, -1.047, -0.314, -0.506, -0.366, -1.047, -0.314, -0.506, -0.366, -0.349, -0.47, -1.20, -1.34])
+    sim_max = np.array([1.047,    2.23,  1.885,  2.042,  1.047,   2.23,  1.885,  2.042,  1.047,   2.23,  1.885,  2.042,  2.094,  2.443, 1.90,  1.88])
     return sim_min, sim_max
 
 #this goes from [-1, 1] to [lower, upper]

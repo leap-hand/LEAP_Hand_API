@@ -6,8 +6,8 @@ from rclpy.node import Node
 from sensor_msgs.msg import JointState
 from std_msgs.msg import String
 
-from leap_hand_utils.dynamixel_client import DynamixelClient
-import leap_hand_utils.leap_hand_utils as lhu
+from dynamixel_client import DynamixelClient
+import leap_hand_utils as lhu
 from leap_hand.srv import LeapPosition, LeapVelocity, LeapEffort
 
 class LeapNode(Node):
@@ -19,6 +19,7 @@ class LeapNode(Node):
         self.kI = self.declare_parameter('kI', 0.0).get_parameter_value().double_value
         self.kD = self.declare_parameter('kD', 200.0).get_parameter_value().double_value
         self.curr_lim = self.declare_parameter('curr_lim', 350.0).get_parameter_value().double_value
+
         self.ema_amount = 0.2
         self.prev_pos = self.pos = self.curr_pos = lhu.allegro_to_LEAPhand(np.zeros(16))
 
@@ -35,14 +36,14 @@ class LeapNode(Node):
         # You can put the correct port here or have the node auto-search for a hand at the first 3 ports.
         self.motors = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
         try:
-            self.dxl_client = DynamixelClient(self.motors, '/dev/ttyUSB0', 4000000)
+            self.dxl_client = DynamixelClient(self.motors, '/dev/ttyUSB0', 3000000)
             self.dxl_client.connect()
         except Exception:
             try:
-                self.dxl_client = DynamixelClient(self.motors, '/dev/ttyUSB1', 4000000)
+                self.dxl_client = DynamixelClient(self.motors, '/dev/ttyUSB1', 3000000)
                 self.dxl_client.connect()
             except Exception:
-                self.dxl_client = DynamixelClient(self.motors, '/dev/ttyUSB2', 4000000)
+                self.dxl_client = DynamixelClient(self.motors, '/dev/ttyUSB2', 3000000)
                 self.dxl_client.connect()
 
         # Enables position-current control mode and the default parameters
