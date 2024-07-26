@@ -10,6 +10,8 @@ def generate_launch_description():
         'default_params.yaml'
     )
 
+    print(config)
+
     return LaunchDescription([
         Node(
             package='leap_ros2',

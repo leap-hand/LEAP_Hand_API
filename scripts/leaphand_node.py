@@ -13,7 +13,7 @@ class DynamixelReaderNode(Node):
         # Declare parameters with default values
         self.declare_parameter('hand_name', 'dom')
         self.declare_parameter('baudrate', 3000000)
-        self.declare_parameter('device_name', '/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT8ISZ8Z-if00-port0')
+        self.declare_parameter('device_name', '/dev/serial/by-id/usb-FTDI_USB__--if00-port0')
         self.declare_parameter('pub_pos', True)
         self.declare_parameter('pub_vel', False)
         self.declare_parameter('pub_current', False)
@@ -37,6 +37,8 @@ class DynamixelReaderNode(Node):
         self.start_pos = self.get_parameter('start_pos').get_parameter_value().double_array_value
 
         self.curr_pos = self.start_pos
+
+        print(self.device_name)
 
         # Ensure the curr_pos array has the correct length
         if len(self.curr_pos) != 16:
@@ -120,7 +122,7 @@ class DynamixelReaderNode(Node):
         self.initialize_gains()
 
         # Create timer to publish data
-        timer_period = 1.0 / 100.0
+        timer_period = 1.0 / 60.0
         self.timer = self.create_timer(timer_period, self.read_and_publish_data)
 
     def __del__(self):
