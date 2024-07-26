@@ -9,6 +9,12 @@ class DynamixelControlNode(Node):
     def __init__(self):
         super().__init__('dynamixel_control_node')
 
+        # Declare parameters with default values
+        self.declare_parameter('hand_name', 'dom')
+
+        # Get parameters from the parameter server
+        self.hand_name = self.get_parameter('hand_name').get_parameter_value().string_value
+
         # Define positions to command
         self.positions_to_command = [
             [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -26,12 +32,10 @@ class DynamixelControlNode(Node):
         self.current_pose_index = 0
 
         # Create publisher for joint states
-        self.pub_joint_states = self.create_publisher(JointState, 'command_joint_states', 10)
+        self.pub_joint_states = self.create_publisher(JointState, '/' + self.hand_name + '/command_joint_states', 10)
 
         # Create timer to publish joint states every 5 seconds
-        self.timer = self.create_timer(1.0, self.publish_joint_states)
-
-        self.get_logger().info('Dynamixel control node ready')
+        self.timer = self.create_timer(0.5, self.publish_joint_states)
 
     def publish_joint_states(self):
         joint_state_msg = JointState()

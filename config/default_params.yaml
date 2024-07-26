@@ -1,0 +1,13 @@
+leap_params:
+    ros__parameters:
+        hand_name: "dom"
+        baudrate: 3000000
+        device_name: "/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT8ISZ8Z-if00-port0"
+        pub_pos: true
+        pub_vel: false
+        pub_current: false
+        kP: 800
+        kI: 0
+        kD: 800
+        curr_lim: 5000
+        start_pos: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]

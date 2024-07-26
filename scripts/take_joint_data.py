@@ -4,6 +4,7 @@ import dynamixel_sdk as dxl
 # Set your Dynamixel motor IDs and port name
 DXL_IDS = list(range(16))  # IDs 0 to 15
 SERIAL_PORT = '/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT4NQ6SW-if00-port0'  # Adjust this based on your system
+SERIAL_PORT = '/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT8ISZ8Z-if00-port0'
 BAUDRATE = 3000000  # Baud rate of Dynamixel
 
 # Initialize PortHandler instance

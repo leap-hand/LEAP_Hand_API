@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(leap_hand)
+project(leap_ros2)
 
 # Find dependencies
 find_package(ament_cmake REQUIRED)
@@ -12,12 +12,6 @@ find_package(rosidl_default_generators REQUIRED)
 ################################################
 
 ## Generate services in the 'srv' folder
-rosidl_generate_interfaces(${PROJECT_NAME}
-  "srv/LeapVelocity.srv"
-  "srv/LeapPosition.srv"
-  "srv/LeapEffort.srv"
-  DEPENDENCIES std_msgs
-)
 
 #############
 ## Install ##
@@ -38,6 +32,11 @@ install(PROGRAMS ${SCRIPT_FILES}
 # Install launch files
 install(DIRECTORY launch/
   DESTINATION share/${PROJECT_NAME}/launch
+)
+
+# Install config files
+install(DIRECTORY config/
+  DESTINATION share/${PROJECT_NAME}/config
 )
 
 ###################################

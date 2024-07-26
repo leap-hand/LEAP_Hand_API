@@ -10,22 +10,23 @@ class DynamixelReaderNode(Node):
     def __init__(self):
         super().__init__('dynamixel_reader_node')
 
-        # Declare and get parameters
+        # Declare parameters with default values
+        self.declare_parameter('hand_name', 'dom')
         self.declare_parameter('baudrate', 3000000)
-        self.declare_parameter('devicename', '/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT4NQ6SW-if00-port0')
-        self.declare_parameter('max_publish_frequency', 60.0)
+        self.declare_parameter('device_name', '/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT8ISZ8Z-if00-port0')
         self.declare_parameter('pub_pos', True)
-        self.declare_parameter('pub_vel', True)
-        self.declare_parameter('pub_current', True)
-        self.declare_parameter('kP', 100)
+        self.declare_parameter('pub_vel', False)
+        self.declare_parameter('pub_current', False)
+        self.declare_parameter('kP', 800)
         self.declare_parameter('kI', 0)
-        self.declare_parameter('kD', 0)
-        self.declare_parameter('curr_lim', 500)
-        self.declare_parameter('curr_pos', [0]*16)  # Initial positions for the motors
+        self.declare_parameter('kD', 200)
+        self.declare_parameter('curr_lim', 2000)
+        self.declare_parameter('start_pos', [0]*16)  # Initial positions for the motors
 
+        # Get parameters from the parameter server
+        self.hand_name = self.get_parameter('hand_name').get_parameter_value().string_value
         self.baudrate = self.get_parameter('baudrate').get_parameter_value().integer_value
-        self.devicename = self.get_parameter('devicename').get_parameter_value().string_value
-        self.publish_frequency = self.get_parameter('max_publish_frequency').get_parameter_value().double_value
+        self.device_name = self.get_parameter('device_name').get_parameter_value().string_value
         self.pub_pos = self.get_parameter('pub_pos').get_parameter_value().bool_value
         self.pub_vel = self.get_parameter('pub_vel').get_parameter_value().bool_value
         self.pub_current = self.get_parameter('pub_current').get_parameter_value().bool_value
@@ -33,7 +34,9 @@ class DynamixelReaderNode(Node):
         self.kI = self.get_parameter('kI').get_parameter_value().integer_value
         self.kD = self.get_parameter('kD').get_parameter_value().integer_value
         self.curr_lim = self.get_parameter('curr_lim').get_parameter_value().integer_value
-        self.curr_pos = self.get_parameter('curr_pos').get_parameter_value().double_array_value
+        self.start_pos = self.get_parameter('start_pos').get_parameter_value().double_array_value
+
+        self.curr_pos = self.start_pos
 
         # Ensure the curr_pos array has the correct length
         if len(self.curr_pos) != 16:
@@ -59,7 +62,7 @@ class DynamixelReaderNode(Node):
         self.PROTOCOL_VERSION = 2.0
 
         # Initialize PortHandler and PacketHandler instances
-        self.port_handler = dxl.PortHandler(self.devicename)
+        self.port_handler = dxl.PortHandler(self.device_name)
         self.packet_handler = dxl.PacketHandler(self.PROTOCOL_VERSION)
 
         # Open port
@@ -103,12 +106,12 @@ class DynamixelReaderNode(Node):
                 return
 
         # Create publisher
-        self.publisher = self.create_publisher(JointState, 'dynamixel_joint_states', 10)
+        self.publisher = self.create_publisher(JointState, "/" + self.hand_name + '/dynamixel_joint_states', 10)
 
         # Create subscriber
         self.subscription = self.create_subscription(
             JointState,
-            'command_joint_states',
+            "/" + self.hand_name + '/command_joint_states',
             self.command_callback,
             10
         )
@@ -117,7 +120,7 @@ class DynamixelReaderNode(Node):
         self.initialize_gains()
 
         # Create timer to publish data
-        timer_period = 1.0 / self.publish_frequency
+        timer_period = 1.0 / 100.0
         self.timer = self.create_timer(timer_period, self.read_and_publish_data)
 
     def __del__(self):

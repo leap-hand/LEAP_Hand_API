@@ -1,28 +1,30 @@
-<?xml version="1.0"?>
 <package format="3">
-  <name>leap_hand</name>
-  <version>0.0.0</version>
-  <description>The leap_hand package</description>
+    <name>leap_ros2</name>
+    <version>1.0.0</version>
+    <description>
+        This package provides an interface to the Leap Hands
+    </description>
+    <maintainer email="eharber@ucla.edu">Evan Harber</maintainer>
+    <license>MIT</license>
 
-  <maintainer email="anag@todo.todo">anag</maintainer>
-  <license>MIT</license>
+    <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <depend>rclpy</depend>
-  <depend>sensor_msgs</depend>
-  <depend>std_msgs</depend>
+    <depend>rclpy</depend>
+    <depend>std_msgs</depend>
+    <depend>geometry_msgs</depend>
 
-  <buildtool_depend>ament_cmake</buildtool_depend>
-  <build_depend>ament_cmake_python</build_depend>
-  <build_depend>python3</build_depend>
-  <exec_depend>python3</exec_depend>
-  <exec_depend>launch</exec_depend>
+    <depend>builtin_interfaces</depend>
+    <buildtool_depend>rosidl_default_generators</buildtool_depend>
+    <exec_depend>rosidl_default_runtime</exec_depend>
+    <member_of_group>rosidl_interface_packages</member_of_group>
 
-  <test_depend>ament_lint_auto</test_depend>
-  <test_depend>ament_lint_common</test_depend>
+    <exec_depend>python3-numpy</exec_depend>
+    <exec_depend>python3-opencv</exec_depend>
+    <exec_depend>python3-yaml</exec_depend>
+    <exec_depend>ros2launch</exec_depend>
 
-  <member_of_group>rosidl_interface_packages</member_of_group>
+    <export>
+        <build_type>ament_cmake</build_type>
+    </export>
 
-  <export>
-    <build_type>ament_cmake</build_type>
-  </export>
 </package>
