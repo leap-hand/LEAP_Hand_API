@@ -1,6 +1,6 @@
 hand_name: "dom"
-baudrate: 3000000
-device_name: "/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT4NQ6SW-if00-port0"
+baudrate: 4000000
+device_name: "/dev/ttyUSB0"
 pub_pos: true
 pub_vel: false
 pub_current: false

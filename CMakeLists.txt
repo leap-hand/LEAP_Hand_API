@@ -14,7 +14,7 @@ find_package(rosidl_default_generators REQUIRED)
 # Install Python scripts in the scripts directory
 file(GLOB SCRIPT_FILES scripts/*.py)
 install(PROGRAMS ${SCRIPT_FILES}
-  DESTINATION share/${PROJECT_NAME}
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 # Install all Python scripts in the launch directory (if any)
@@ -34,6 +34,7 @@ install(DIRECTORY config/
   DESTINATION share/${PROJECT_NAME}/config
   FILES_MATCHING PATTERN "*.yaml"
 )
+
 
 ###################################
 ## ament specific configuration  ##
