@@ -20,7 +20,7 @@ The table below lists the direct dependencies needed for this repository.
 
 ## Setup Instructions
 
-Follow these steps to set up the Dynamixel:
+Follow these steps to set up the Leap Hand:
 
 1. **Clone the Repository**:
    ```bash
