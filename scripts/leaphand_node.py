@@ -6,6 +6,8 @@ from sensor_msgs.msg import JointState
 import dynamixel_sdk as dxl
 import numpy as np
 
+import importlib
+
 class DynamixelReaderNode(Node):
     def __init__(self):
         super().__init__('dynamixel_reader_node')
@@ -13,11 +15,11 @@ class DynamixelReaderNode(Node):
         # Declare parameters with default values
         self.declare_parameter('hand_name', 'dom')
         self.declare_parameter('baudrate', 3000000)
-        self.declare_parameter('device_name', '/dev/serial/by-id/usb-FTDI_USB__--if00-port0')
+        self.declare_parameter('device_name', '/dev/ttyUSB0')
         self.declare_parameter('pub_pos', True)
         self.declare_parameter('pub_vel', False)
         self.declare_parameter('pub_current', False)
-        self.declare_parameter('kP', 800)
+        self.declare_parameter('kP', 500)
         self.declare_parameter('kI', 0)
         self.declare_parameter('kD', 200)
         self.declare_parameter('curr_lim', 2000)
@@ -124,7 +126,8 @@ class DynamixelReaderNode(Node):
         # Create timer to publish data
         timer_period = 1.0 / 60.0
         self.timer = self.create_timer(timer_period, self.read_and_publish_data)
-
+        
+    
     def __del__(self):
         # Torque off the motors
         try:
