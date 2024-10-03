@@ -1,3 +1,114 @@
+
+# Leap ROS2 Interface
+
+- This repository contains code for running the [LEAP Hand](http://leaphand.com/).
+
+
+## Table of Contents
+
+- [Dependencies](#dependencies)
+- [Setup Instructions](#setup-instructions)
+- [Connecting Digits](#connecting-digits)
+- [Running the Digit Driver](#running-the-digit-driver)
+- [Debugging](#debugging)
+
+## Dependencies
+The table below lists the direct dependencies needed for this repository.
+
+| **Dependency Name**                                                          | **Description**                                                                   |
+|------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| [imutils](https://github.com/PyImageSearch/imutils)                          | A series of convenience functions to make basic image processing functions.       |
+| [digit-interface](https://github.com/facebookresearch/digit-interface)       | Python interface for the DIGIT tactile sensor.     |
+
+## Setup Instructions
+
+Follow these steps to set up the Digit ROS2 Interface:
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/BiomechatronicsLab/digit_ros2.git
+   cd your-repo-directory
+   ```
+
+2. **Install Dependencies**:
+   Ensure you have Python packages required for the project:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Install Tactile Sensor Messages**:
+   Ensure that [Tacticle Sensor Messages](https://github.com/BiomechatronicsLab/tactile_sensor_msgs) is installed:
+   ```bash
+   git clone git@github.com:BiomechatronicsLab/tactile_sensor_msgs.git
+   ```
+
+4. **Compile the Package**:
+   Build the package using `colcon`:
+   ```bash
+   colcon build --packages-select digit_ros2 tactile_sensor_msgs --symlink-install
+   ```
+
+## Connecting Digits
+
+Once the Digits are plugged in, you can verify the connection by running:
+```bash
+ros2 run digit_ros2 print_connected_digits.py
+```
+This command will list all connected Digit sensors. If your sensor is not listed, ensure it is properly connected.
+
+## Running the Digit Driver
+
+To run the Digit driver, you first need to create a configuration file. It’s recommended to copy the existing `default_params.yaml` and modify it according to your requirements.
+
+### Steps to Run the Driver:
+
+1. **Create and Edit Configuration File**:
+   Copy the default parameters:
+   ```bash
+   cp path/to/default_params.yaml path/to/your/config.yaml
+   ```
+
+   Modify `config.yaml` as needed to set your desired parameters.
+
+2. **Launch the Driver**:
+   Execute the following command, specifying the path to your configuration file:
+   ```bash
+   ros2 launch digit_ros2 digits_launch.py config_file:=/path/to/your/config.yaml
+   ```
+
+   If you do not specify a config file, the driver will default to the parameters in `default_params.yaml`.
+
+### Zeroing the sensor
+
+If you wish to zero out all of the force values use the command:
+```bash 
+ros2 service call /pinky/zero std_srvs/srv/Trigger {}\ 
+```
+
+## Debugging
+
+If you encounter issues while running the scripts, ensure you have sourced your ROS2 workspace:
+```bash
+source install/setup.bash
+```
+
+### Additional Debugging Tips:
+
+- Use the **RQT Image Viewer** to visualize the optical flow images. This can help identify potential issues with the optical flow algorithm.
+- Check your cable connection and make sure it is secure.
+- Tighten all of the screws on the DIGIT, especailly those holding the PCB in place.
+
+
+
+
+
+
+
+
+
+
+
+
 ## Welcome to the LEAP Hand SDK
 - Please visit [our website](http://leaphand.com/) for more information about LEAP hand.
 #### Software Setup
