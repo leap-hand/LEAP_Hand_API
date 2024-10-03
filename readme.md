@@ -42,15 +42,17 @@ Follow these steps to set up the Leap Hand:
 
 ## Running the Leap Hand
 
-1. **Create and Edit Configuration File**:
+1. **Connect USB**
+   Connect USB to Leap Hand to Computer
+   
+2. **Create and Edit Configuration File**:
    Copy the default parameters:
    ```bash
    cp path/to/default_params.yaml path/to/your/config.yaml
    ```
-
    Modify `config.yaml` as needed to set your desired parameters.
 
-2. **Launch the Driver**:
+4. **Launch the Driver**:
    Execute the following command, specifying the path to your configuration file:
    ```bash
    ros2 launch leap_ros2 launch_leap.py config_file:=/path/to/config/leaphandName.yaml
