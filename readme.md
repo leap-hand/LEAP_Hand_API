@@ -8,8 +8,7 @@
 
 - [Dependencies](#dependencies)
 - [Setup Instructions](#setup-instructions)
-- [Connecting Digits](#connecting-digits)
-- [Running the Digit Driver](#running-the-digit-driver)
+- [Running the Leap Hand](#running-the-leap-hand)
 - [Debugging](#debugging)
 
 ## Dependencies
@@ -17,16 +16,15 @@ The table below lists the direct dependencies needed for this repository.
 
 | **Dependency Name**                                                          | **Description**                                                                   |
 |------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| [imutils](https://github.com/PyImageSearch/imutils)                          | A series of convenience functions to make basic image processing functions.       |
-| [digit-interface](https://github.com/facebookresearch/digit-interface)       | Python interface for the DIGIT tactile sensor.     |
+| [dynamixel-sdk](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/)                          | DYNAMIXEL SDK is a software development kit that provides DYNAMIXEL control functions using packet communication.       |
 
 ## Setup Instructions
 
-Follow these steps to set up the Digit ROS2 Interface:
+Follow these steps to set up the Dynamixel:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/BiomechatronicsLab/digit_ros2.git
+   git clone git@github.com:BiomechatronicsLab/leap_ros2.git
    cd your-repo-directory
    ```
 
@@ -35,32 +33,14 @@ Follow these steps to set up the Digit ROS2 Interface:
    ```bash
    pip install -r requirements.txt
    ```
-
-3. **Install Tactile Sensor Messages**:
-   Ensure that [Tacticle Sensor Messages](https://github.com/BiomechatronicsLab/tactile_sensor_msgs) is installed:
-   ```bash
-   git clone git@github.com:BiomechatronicsLab/tactile_sensor_msgs.git
-   ```
-
+   
 4. **Compile the Package**:
    Build the package using `colcon`:
    ```bash
-   colcon build --packages-select digit_ros2 tactile_sensor_msgs --symlink-install
+   colcon build --packages-select leap_ros2 --symlink-install
    ```
 
-## Connecting Digits
-
-Once the Digits are plugged in, you can verify the connection by running:
-```bash
-ros2 run digit_ros2 print_connected_digits.py
-```
-This command will list all connected Digit sensors. If your sensor is not listed, ensure it is properly connected.
-
-## Running the Digit Driver
-
-To run the Digit driver, you first need to create a configuration file. It’s recommended to copy the existing `default_params.yaml` and modify it according to your requirements.
-
-### Steps to Run the Driver:
+## Running the Leap Hand
 
 1. **Create and Edit Configuration File**:
    Copy the default parameters:
@@ -73,36 +53,12 @@ To run the Digit driver, you first need to create a configuration file. It’s r
 2. **Launch the Driver**:
    Execute the following command, specifying the path to your configuration file:
    ```bash
-   ros2 launch digit_ros2 digits_launch.py config_file:=/path/to/your/config.yaml
+   ros2 launch leap_ros2 launch_leap.py config_file:=/path/to/config/leaphandName.yaml
    ```
-
-   If you do not specify a config file, the driver will default to the parameters in `default_params.yaml`.
-
-### Zeroing the sensor
-
-If you wish to zero out all of the force values use the command:
-```bash 
-ros2 service call /pinky/zero std_srvs/srv/Trigger {}\ 
-```
 
 ## Debugging
 
-If you encounter issues while running the scripts, ensure you have sourced your ROS2 workspace:
-```bash
-source install/setup.bash
-```
-
-### Additional Debugging Tips:
-
-- Use the **RQT Image Viewer** to visualize the optical flow images. This can help identify potential issues with the optical flow algorithm.
-- Check your cable connection and make sure it is secure.
-- Tighten all of the screws on the DIGIT, especailly those holding the PCB in place.
-
-
-
-
-
-
+1. After plugging in the USB from the Leap into your computer, use the following if necessary to determine the serial ID associated with the appropriate hand: ```cd /dev/serial/by-id/ ```
 
 
 
