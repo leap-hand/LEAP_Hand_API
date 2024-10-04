@@ -1,0 +1,27 @@
+baudrate: 3000000
+curr_lim: 5000
+device_name: /dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT4NQ6SW-if00-port0
+hand_name: dom
+kD: 200
+kI: 0
+kP: 600
+pub_current: false
+pub_pos: true
+pub_vel: false
+start_pos:
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
