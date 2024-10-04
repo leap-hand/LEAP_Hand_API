@@ -92,7 +92,7 @@ Follow these steps to set up the Leap Hand:
 
 #### Troubleshooting
 - If your motor is 90/180/270 Degrees off, the horn is mounted incorrectly on the motor.  Remount it.
-- If no motors show up, check that your serial port permissions are correct.
+- If no motors show up, check that your serial port permissions are correct. Try this command: `sudo usermod -aG dialout $USER`
 - If some motors are missing, make sure they are IDed corrrectly and are connected to the U2D2.
 - If you get "overload error" and the motors are flashing red, then they have overloaded (self-collision etc). It should clear on a power cycle.  If it happens often, lower the current limits in the control code so that it does not happen as often.
 - If you get "jittery" motors, try lowering the P and D values, either in the roslaunch file or the python file.
