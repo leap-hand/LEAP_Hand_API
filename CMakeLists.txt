@@ -20,7 +20,7 @@ install(PROGRAMS ${SCRIPT_FILES}
 # Install all Python scripts in the launch directory (if any)
 file(GLOB LAUNCH_SCRIPTS launch/*.py)
 install(PROGRAMS ${LAUNCH_SCRIPTS}
-  DESTINATION share/${PROJECT_NAME}
+  DESTINATION share/${PROJECT_NAME}/launch
 )
 
 # Install launch files

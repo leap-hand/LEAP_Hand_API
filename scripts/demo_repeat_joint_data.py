@@ -12,8 +12,14 @@ class DynamixelControlNode(Node):
         # Declare parameters with default values
         self.declare_parameter('hand_name', 'dom')
 
+        # Declare the hand_side parameter with a default value
+        self.declare_parameter('hand_side', 'right')  # Default to 'right' if not set
+
         # Get parameters from the parameter server
         self.hand_name = self.get_parameter('hand_name').get_parameter_value().string_value
+
+        # Get hand_side parameter from the parameter server
+        self.hand_side = self.get_parameter('hand_side').get_parameter_value().string_value
 
         # Define positions to command
         # New leaphand  
@@ -29,18 +35,14 @@ class DynamixelControlNode(Node):
             [-13.552, 83.952, 5.368, 10.12, -5.72, 13.816, -26.84, -20.592, 6.336, 4.752, -26.664, 3.168, 82.456, -102.08, 44.616, -30.096]
         ]
         
-        # # Old leaphand
-        # self.positions_to_command = [
-        #     [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-        #     [-4.928, 4.136, -26.664, 17.776, -1.936, 0.0, -22.352, -1.408, 0.616, 1.144, -12.584, -4.664, 81.312, -27.368, 65.736, 55.0],
-        #     [99.528, 3.168, 48.4, 35.904, -2.376, 0.0, -22.352, -1.408, 0.792, 1.144, -12.584, -4.664, 82.984, -27.368, 68.992, 55.176],
-        #     [100.056, 3.344, 48.136, 35.904, 106.744, -4.576, 17.6, 38.72, 3.432, 1.232, -12.584, -4.664, 83.688, -27.192, 69.344, 53.064],
-        #     [99.968, 3.256, 48.224, 35.904, 106.656, -4.664, 17.6, 38.72, 104.632, -10.56, 39.072, 35.024, 83.688, -27.192, 69.256, 53.064],
-        #     [95.744, 3.256, 48.4, 35.904, 21.56, 20.152, -17.072, -10.384, 21.472, -19.36, -24.376, 22.088, 83.688, -27.72, 69.256, 53.328],
-        #     [8.184, 3.696, -18.568, 3.168, 95.04, -6.512, -3.344, -20.592, 15.136, -18.128, -24.464, 22.088, 98.384, -78.496, 38.632, -14.96],
-        #     [70.752, -20.328, 24.728, 3.432, 12.144, -6.424, -4.048, -20.592, 14.608, -18.128, -24.464, 22.0, 111.672, -83.776, 40.216, -22.792],
-        #     [4.752, 6.336, -26.664, 3.168, 13.816, -5.72, -26.84, -20.592, 83.952, -13.552, 5.368, 10.12, 82.456, -102.08, 44.616, -30.096]
-        # ]
+        # Adjust positions based on hand side
+        if self.hand_side == 'left':
+            for i in range(len(self.positions_to_command)):
+                self.positions_to_command[i][0] = -self.positions_to_command[i][0]  # Index 0
+                self.positions_to_command[i][4] = -self.positions_to_command[i][4]  # Index 4
+                self.positions_to_command[i][8] = -self.positions_to_command[i][8]  # Index 4
+                self.positions_to_command[i][12] = -self.positions_to_command[i][12]  # Index 12
+                self.positions_to_command[i][13] = -self.positions_to_command[i][13]  # Index 13
 
         # Initialize index for current position
         self.current_pose_index = 0
