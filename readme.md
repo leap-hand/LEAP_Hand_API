@@ -55,7 +55,13 @@ Follow these steps to set up the Leap Hand:
 4. **Launch the Driver**:
    Execute the following command, specifying the path to your configuration file:
    ```bash
-   ros2 launch leap_ros2 launch_leap.py config_file:=/path/to/config/leaphandName.yaml
+   ros2 launch leap_ros2 launch_leap.py config_file:=leaphandName.yaml
+   ```
+
+5. **Test Demo**:
+   Execute the following command, to check if the leap hand will move each of its fingers!
+   ```bash
+   ros2 run leap_ros2 demo_repeat_joint_data.py
    ```
 
 ## Debugging
