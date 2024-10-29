@@ -14,7 +14,8 @@ I recommend you only query when necessary and below 90 samples a second.  Each o
 #http://wiki.wonikrobotics.com/AllegroHandWiki/index.php/Joint_Zeros_and_Directions_Setup_Guide I belive the black and white figure (not blue motors) is the zero position, and the + is the correct way around.  LEAP Hand in my videos start at zero position and that looks like that figure.
 
 #LEAP hand conventions:
-#180 is flat out for the index, middle, ring, fingers, and positive is closing more and more.
+#180 is flat out for the index, middle, ring, finger MCPs.
+#Applying a positive angle closes the other joints more and more.
 
 """
 ########################################################
