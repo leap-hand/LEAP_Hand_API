@@ -33,6 +33,7 @@
 #### Useful Tools:
 - MANO to LEAP joint angle mapping.
 - If you have useful tools you feel the community can benefit from, please make a pull request.
+- Please see the code from [Bimanual Dexterity for Complex Tasks](https://bidex-teleop.github.io/) to use Manus gloves with LEAP Hand.
 - I can also add tools to this upon request.  :)
 
 #### Support:
