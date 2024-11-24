@@ -59,6 +59,7 @@ add_service_files(
     leap_velocity.srv
     leap_position.srv
     leap_effort.srv
+    leap_pos_vel_eff.srv
 )
 
 ## Generate actions in the 'action' folder

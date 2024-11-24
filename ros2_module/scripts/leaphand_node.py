@@ -8,7 +8,7 @@ from std_msgs.msg import String
 
 from leap_hand_utils.dynamixel_client import DynamixelClient
 import leap_hand_utils.leap_hand_utils as lhu
-from leap_hand.srv import LeapPosition, LeapVelocity, LeapEffort
+from leap_hand.srv import LeapPosition, LeapVelocity, LeapEffort, LeapPosVelEff
 
 class LeapNode(Node):
     def __init__(self):
@@ -30,7 +30,8 @@ class LeapNode(Node):
         self.create_service(LeapPosition, 'leap_position', self.pos_srv)
         self.create_service(LeapVelocity, 'leap_velocity', self.vel_srv)
         self.create_service(LeapEffort, 'leap_effort', self.eff_srv)
-
+        self.create_service(LeapPosVelEff, 'leap_pos_vel_eff', self.pos_vel_eff_srv)
+        self.create_service(LeapPosVelEff, 'leap_pos_vel', self.pos_vel_srv)
         # You can put the correct port here or have the node auto-search for a hand at the first 3 ports.
         self.motors = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
         try:
@@ -90,6 +91,18 @@ class LeapNode(Node):
     # Service that reads and returns the effort/current of the robot in LEAP Embodiment
     def eff_srv(self, request, response):
         response.effort = self.dxl_client.read_cur().tolist()
+        return response
+    def pos_vel_srv(self, request, response):
+        output = self.dxl_client.read_pos_vel()
+        response.position = output[0].tolist()
+        response.velocity = output[1].tolist()
+        response.effort = np.zeros_like(output[1])
+        return response
+    def pos_vel_eff_srv(self, request, response):
+        output = self.dxl_client.read_pos_vel_cur()
+        response.position = output[0].tolist()
+        response.velocity = output[1].tolist()
+        response.effort = output[2].tolist()
         return response
 
 def main(args=None):
