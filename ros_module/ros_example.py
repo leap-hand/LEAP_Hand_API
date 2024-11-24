@@ -14,6 +14,7 @@ from leap_hand.srv import *
 # This is example code, it reads the position from LEAP Hand and commands it
 # Be sure to query the services only when you need it
 # This way you don't clog up the communication lines and you get the newest data possible
+# If you are looking for position and velocity or pos, vel and curr, I recommend you used the combined services instead of calling them individually, its faster.
 class Telekinesis:
     def __init__(self):        
         rospy.wait_for_service('/leap_position')
