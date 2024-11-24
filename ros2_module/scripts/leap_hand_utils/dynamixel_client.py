@@ -483,8 +483,8 @@ class DynamixelPosVelReader(DynamixelReader):
         super().__init__(
             client,
             motor_ids,
-            address=ADDR_PRESENT_POS_VEL_CUR,
-            size=LEN_PRESENT_POS_VEL_CUR,
+            address=ADDR_PRESENT_POS_VEL,
+            size=LEN_PRESENT_POS_VEL,
         )
         self.pos_scale = pos_scale
         self.vel_scale = vel_scale
@@ -521,8 +521,8 @@ class DynamixelPosReader(DynamixelReader):
         super().__init__(
             client,
             motor_ids,
-            address=ADDR_PRESENT_POS_VEL_CUR,
-            size=LEN_PRESENT_POS_VEL_CUR,
+            address=ADDR_PRESENT_POSITION,
+            size=LEN_PRESENT_POSITION,
         )
         self.pos_scale = pos_scale
 
@@ -553,8 +553,8 @@ class DynamixelVelReader(DynamixelReader):
         super().__init__(
             client,
             motor_ids,
-            address=ADDR_PRESENT_POS_VEL_CUR,
-            size=LEN_PRESENT_POS_VEL_CUR,
+            address=ADDR_PRESENT_VELOCITY,
+            size=LEN_PRESENT_VELOCITY,
         )
         self.pos_scale = pos_scale
         self.vel_scale = vel_scale
@@ -587,8 +587,8 @@ class DynamixelCurReader(DynamixelReader):
         super().__init__(
             client,
             motor_ids,
-            address=ADDR_PRESENT_POS_VEL_CUR,
-            size=LEN_PRESENT_POS_VEL_CUR,
+            address=ADDR_PRESENT_CURRENT,
+            size=LEN_PRESENT_CURRENT,
         )
         self.cur_scale = cur_scale
 
