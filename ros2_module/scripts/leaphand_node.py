@@ -96,7 +96,7 @@ class LeapNode(Node):
         output = self.dxl_client.read_pos_vel()
         response.position = output[0].tolist()
         response.velocity = output[1].tolist()
-        response.effort = np.zeros_like(output[1])
+        response.effort = np.zeros_like(output[1]).tolist()
         return response
     def pos_vel_eff_srv(self, request, response):
         output = self.dxl_client.read_pos_vel_cur()
