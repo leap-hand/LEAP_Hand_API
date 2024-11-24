@@ -76,6 +76,12 @@ class LeapNode:
     #read velocity
     def read_vel(self):
         return self.dxl_client.read_vel()
+    #Read pos and vel.  NOTE: if you want both pos and vel, this is a faster way to read from the motors than individually!
+    def read_pos_vel(self):
+        return self.dxl_client.read_pos_vel()
+    #Read pos and vel.  NOTE: if you want both pos and vel and cur, this is a faster way to read from the motors than individually!
+    def read_pos_vel_cur(self):
+        return self.dxl_client.read_pos_vel_cur()
     #read current
     def read_cur(self):
         return self.dxl_client.read_cur()
@@ -83,9 +89,11 @@ class LeapNode:
 def main(**kwargs):
     leap_hand = LeapNode()
     while True:
+        x = time.time()
         leap_hand.set_allegro(np.zeros(16))
-        print("Position: " + str(leap_hand.read_pos()))
-        time.sleep(0.03)
+        print("Position: " + str(leap_hand.read_pos_vel_cur()))
+        #time.sleep(0.01)
+        print(time.time() - x)
 
 
 if __name__ == "__main__":
