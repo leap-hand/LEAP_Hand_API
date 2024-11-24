@@ -91,10 +91,8 @@ def main(**kwargs):
     while True:
         x = time.time()
         leap_hand.set_allegro(np.zeros(16))
-        print("Position: " + str(type(leap_hand.read_pos_vel_cur()[0])))
-        #time.sleep(0.01)
-        print(time.time() - x)
-
+        print("Position: " + str(leap_hand.read_pos()))
+        time.sleep(0.03)
 
 if __name__ == "__main__":
     main()
