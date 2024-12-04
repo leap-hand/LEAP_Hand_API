@@ -18,6 +18,8 @@ from leap_hand.srv import LeapPosition, LeapVelocity, LeapEffort, LeapPosVelEff
 #The joint numbering goes from Index (0-3), Middle(4-7), Ring(8-11) to Thumb(12-15) and from MCP Side, MCP Forward, PIP, DIP.
 #For instance, the MCP Side of Index is ID 0, the MCP Forward of Ring is 9, the DIP of Ring is 11
 
+#I recommend you only query when necessary and below 90 samples a second.  Used the combined commands if you can to save time.  Also don't forget about the USB latency settings in the readme.
+
 class LeapNode(Node):
     def __init__(self):
         super().__init__('leaphand_node')
