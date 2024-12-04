@@ -19,6 +19,7 @@ from leap_hand.srv import LeapPosition, LeapVelocity, LeapEffort, LeapPosVelEff
 #For instance, the MCP Side of Index is ID 0, the MCP Forward of Ring is 9, the DIP of Ring is 11
 
 #I recommend you only query when necessary and below 90 samples a second.  Used the combined commands if you can to save time.  Also don't forget about the USB latency settings in the readme.
+#The services allow you to always have the latest data when you want it, and not spam the communication lines with unused data.
 
 class LeapNode(Node):
     def __init__(self):
@@ -43,6 +44,8 @@ class LeapNode(Node):
         self.create_service(LeapPosVelEff, 'leap_pos_vel_eff', self.pos_vel_eff_srv)
         self.create_service(LeapPosVelEff, 'leap_pos_vel', self.pos_vel_srv)
         # You can put the correct port here or have the node auto-search for a hand at the first 3 ports.
+        # For example ls /dev/serial/by-id/* to find your LEAP Hand. Then use the result.  
+        # For example: /dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W91VW-if00-port0
         self.motors = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
         try:
             self.dxl_client = DynamixelClient(self.motors, '/dev/ttyUSB0', 4000000)
