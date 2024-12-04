@@ -9,15 +9,14 @@ import time
 I recommend you only query when necessary and below 90 samples a second.  Used the combined commands if you can to save time.  Also don't forget about the USB latency settings in the readme.
 
 #Allegro hand conventions:
-#0.0 is the all the way out beginning pose, and it goes positive as the fingers close more and more
-#http://wiki.wonikrobotics.com/AllegroHandWiki/index.php/Joint_Zeros_and_Directions_Setup_Guide I belive the black and white figure (not blue motors) is the zero position, and the + is the correct way around.  LEAP Hand in my videos start at zero position and that looks like that figure.
+#0.0 is the all the way out beginning pose, and it goes positive as the fingers close more and more.
 
 #LEAP hand conventions:
 #180 is flat out home pose for the index, middle, ring, finger MCPs.
 #Applying a positive angle closes the joints more and more to curl closed.
 #The MCP is centered at 180 and can move positive or negative to that.
 
-#The joint numbering goes from Index (0-3), Middle(4-7), Ring(8-11) to Thumb(12-15) and from MCP Side, MCP Forward, PIP, DIP.
+#The joint numbering goes from Index (0-3), Middle(4-7), Ring(8-11) to Thumb(12-15) and from MCP Side, MCP Forward, PIP, DIP for each finger.
 #For instance, the MCP Side of Index is ID 0, the MCP Forward of Ring is 9, the DIP of Ring is 11
 
 """

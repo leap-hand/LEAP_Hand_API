@@ -15,7 +15,7 @@ from leap_hand.srv import LeapPosition, LeapVelocity, LeapEffort, LeapPosVelEff
 #Applying a positive angle closes the joints more and more to curl closed.
 #The MCP is centered at 180 and can move positive or negative to that.
 
-#The joint numbering goes from Index (0-3), Middle(4-7), Ring(8-11) to Thumb(12-15) and from MCP Side, MCP Forward, PIP, DIP.
+#The joint numbering goes from Index (0-3), Middle(4-7), Ring(8-11) to Thumb(12-15) and from MCP Side, MCP Forward, PIP, DIP for each finger.
 #For instance, the MCP Side of Index is ID 0, the MCP Forward of Ring is 9, the DIP of Ring is 11
 
 #I recommend you only query when necessary and below 90 samples a second.  Used the combined commands if you can to save time.  Also don't forget about the USB latency settings in the readme.
@@ -77,8 +77,8 @@ class LeapNode(Node):
         self.curr_pos = np.array(pose)
         self.dxl_client.write_desired_pos(self.motors, self.curr_pos)
 
-    # Allegro compatibility, first read the allegro publisher and then convert to leap
-    #allegro compatibility joint angles.  It adds 180 to make the fully open position at 0 instead of 180
+    #Allegro compatibility, first read the allegro publisher and then convert to leap
+    #It adds 180 to the input to make the fully open position at 0 instead of 180.
     def _receive_allegro(self, msg):
         pose = lhu.allegro_to_LEAPhand(msg.position, zeros=False)
         self.prev_pos = self.curr_pos
