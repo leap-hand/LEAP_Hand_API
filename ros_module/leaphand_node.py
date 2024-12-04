@@ -10,6 +10,14 @@ from leap_hand_utils.dynamixel_client import DynamixelClient
 import leap_hand_utils.leap_hand_utils as lhu
 from leap_hand.srv import LeapPosition, LeapVelocity, LeapEffort, LeapPosVelEff
 
+#LEAP hand conventions:
+#180 is flat out home pose for the index, middle, ring, finger MCPs.
+#Applying a positive angle closes the joints more and more to curl closed.
+#The MCP is centered at 180 and can move positive or negative to that.
+
+#The joint numbering goes from Index (0-3), Middle(4-7), Ring(8-11) to Thumb(12-15) and from MCP Side, MCP Forward, PIP, DIP.
+#For instance, the MCP Side of Index is ID 0, the MCP Forward of Ring is 9, the DIP of Ring is 11
+
 class LeapNode(Node):
     def __init__(self):
         super().__init__('leaphand_node')
@@ -32,7 +40,9 @@ class LeapNode(Node):
         self.create_service(LeapEffort, 'leap_effort', self.eff_srv)
         self.create_service(LeapPosVelEff, 'leap_pos_vel_eff', self.pos_vel_eff_srv)
         self.create_service(LeapPosVelEff, 'leap_pos_vel', self.pos_vel_srv)
-        # You can put the correct port here or have the node auto-search for a hand at the first 3 ports.
+        #You can put the correct port here or have the node auto-search for a hand at the first 3 ports.
+        # For example ls /dev/serial/by-id/* to find your LEAP Hand. Then use the result.  
+        # For example: /dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W91VW-if00-port0
         self.motors = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
         try:
             self.dxl_client = DynamixelClient(self.motors, '/dev/ttyUSB0', 4000000)
@@ -57,7 +67,7 @@ class LeapNode(Node):
         self.dxl_client.sync_write(self.motors, np.ones(len(self.motors)) * self.curr_lim, 102, 2)
         self.dxl_client.write_desired_pos(self.motors, self.curr_pos)
 
-    # Receive LEAP pose and directly control the robot
+    # Receive LEAP pose and directly control the robot.  Fully open here is 180 and increases in this value closes the hand.
     def _receive_pose(self, msg):
         pose = msg.position
         self.prev_pos = self.curr_pos
@@ -65,6 +75,7 @@ class LeapNode(Node):
         self.dxl_client.write_desired_pos(self.motors, self.curr_pos)
 
     # Allegro compatibility, first read the allegro publisher and then convert to leap
+    #allegro compatibility joint angles.  It adds 180 to make the fully open position at 0 instead of 180
     def _receive_allegro(self, msg):
         pose = lhu.allegro_to_LEAPhand(msg.position, zeros=False)
         self.prev_pos = self.curr_pos
@@ -72,6 +83,7 @@ class LeapNode(Node):
         self.dxl_client.write_desired_pos(self.motors, self.curr_pos)
 
     # Sim compatibility, first read the sim publisher and then convert to leap
+    #Sim compatibility for policies, it assumes the ranges are [-1,1] and then convert to leap hand ranges.
     def _receive_ones(self, msg):
         pose = lhu.sim_ones_to_LEAPhand(np.array(msg.position))
         self.prev_pos = self.curr_pos
@@ -92,12 +104,14 @@ class LeapNode(Node):
     def eff_srv(self, request, response):
         response.effort = self.dxl_client.read_cur().tolist()
         return response
+    #Use these combined services to save a lot of latency if you need multiple datapoints
     def pos_vel_srv(self, request, response):
         output = self.dxl_client.read_pos_vel()
         response.position = output[0].tolist()
         response.velocity = output[1].tolist()
         response.effort = np.zeros_like(output[1]).tolist()
         return response
+    #Use these combined services to save a lot of latency if you need multiple datapoints
     def pos_vel_eff_srv(self, request, response):
         output = self.dxl_client.read_pos_vel_cur()
         response.position = output[0].tolist()
