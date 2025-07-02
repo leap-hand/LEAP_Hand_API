@@ -4,6 +4,7 @@
 - `python -m venv test_env`
 - `source test_env/bin/activate`
 - `pip install dynamixel_sdk numpy`
+- `sudo chmod 777 /dev/serial/by-id/*`
 - `python main.py`
 
 #### Install On Windows
