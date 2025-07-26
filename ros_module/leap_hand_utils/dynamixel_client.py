@@ -387,7 +387,11 @@ class DynamixelReader:
         self.client.check_connected()
         success = False
         while not success and retries >= 0:
-            comm_result = self.operation.txRxPacket()
+            try:
+                comm_result = self.operation.fastSyncRead()
+            except:
+                comm_result = self.operation.txRxPacket()
+                print("Update your Dynamixel_SDK from Github faster reads!")
             success = self.client.handle_packet_result(
                 comm_result, context='read')
             retries -= 1
