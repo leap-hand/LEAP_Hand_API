@@ -10,6 +10,7 @@
 - Source ros2 and the workspace and add to .bashrc if you like.
 #### First time preparation
 - `pip install dynamixel_sdk numpy`
+- `sudo chmod 777 /dev/serial/by-id/*`
 - `chmod +x leaphand_node.py`
 - `chmod +x ros2_example.py`
 #### To Launch

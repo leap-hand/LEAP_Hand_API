@@ -16,6 +16,7 @@
 - `source ~/.bashrc`
 #### First time preparation
 - `pip install dynamixel_sdk numpy`
+- `sudo chmod 777 /dev/serial/by-id/*`
 -  cd ~/catkin_ws/src/ros_module
 - `chmod +x leaphand_node.py`
 #### To Launch
