@@ -20,9 +20,8 @@
   ➡️ Put that port into `main.py` or `ros_example.py`.  
   ⚠️ You **cannot** have Dynamixel Wizard open while using the API (the port will be busy).
 - On Ubuntu, find the hand by ID at `/dev/serial/by-id` (persistent across reboots).
-- sudo chmod 666 /dev/serial/by-id/*** to give serial permissions.
-- Official support: **Python** and 
-**C++** and **ROS/ROS2**. 
+- `sudo chmod 666 /dev/serial/by-id/(your_id)` to give serial port permissions.
+- Official support: **Python** and **C++** and **ROS/ROS2**. 
   Other languages can use the [Dynamixel SDK](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/).
 - To improve latency on Ubuntu:  
   - [Adjust USB Latency Settings](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/)  
