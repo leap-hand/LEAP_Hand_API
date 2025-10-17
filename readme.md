@@ -6,7 +6,8 @@
 
 ### Software Setup
 - See these folders for setup details:  
-  - [Python API](https://github.com/leap-hand/LEAP_Hand_API/tree/main/python)  
+  - [Python API](https://github.com/leap-hand/LEAP_Hand_API/tree/main/python) 
+  - [C++](https://github.com/leap-hand/LEAP_Hand_API/tree/main/cpp)
   - [ROS API](https://github.com/leap-hand/LEAP_Hand_API/tree/main/ros_module)  
   - [ROS2 API](https://github.com/leap-hand/LEAP_Hand_API/tree/main/ros2_module)  
   - [Useful Tools](https://github.com/leap-hand/LEAP_Hand_API/tree/main/useful_tools)
