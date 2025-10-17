@@ -7,7 +7,7 @@
 #include <chrono>
 #include <thread>
 
-#include "dynamixel_client.h"
+#include <leap_hand_utils/dynamixel_client.h>
 
 
 void dynamixel_cleanup_handler(std::set<DynamixelClient*> open_clients) {
@@ -45,8 +45,8 @@ int unsigned_to_signed(int value, int size) {
  * DynamixelClient Definitions                                                    *
  **********************************************************************************/
 
-DynamixelClient::DynamixelClient(std::vector<int> motor_ids,
-                                 std::string port,
+DynamixelClient::DynamixelClient(const std::vector<int> &motor_ids,
+                                 const std::string &port,
                                  int baudrate,
                                  bool lazy_connect,
                                  float pos_scale,
@@ -185,7 +185,7 @@ void DynamixelClient::disconnect() {
     }
 }
 
-void DynamixelClient::set_torque_enabled(std::vector<int> motor_ids,
+void DynamixelClient::set_torque_enabled(const std::vector<int> &motor_ids,
                                          bool enabled,
                                          int retries,
                                          float retry_interval) {
@@ -249,7 +249,7 @@ Eigen::MatrixXd DynamixelClient::read_cur() {
 }
 
 
-void DynamixelClient::write_desired_pos(std::vector<int> motor_ids, Eigen::MatrixXd positions) {
+void DynamixelClient::write_desired_pos(const std::vector<int> &motor_ids, Eigen::MatrixXd positions) {
     /* Writes the given desired positions.
 
     Args:
@@ -263,7 +263,7 @@ void DynamixelClient::write_desired_pos(std::vector<int> motor_ids, Eigen::Matri
     sync_write(motor_ids, positions, ADDR_GOAL_POSITION, LEN_GOAL_POSITION);
 }
 
-std::vector<int> DynamixelClient::write_byte(std::vector<int> motor_ids, int value, int address) {
+std::vector<int> DynamixelClient::write_byte(const std::vector<int> &motor_ids, int value, int address) {
     /* Writes a value to the motors.
 
     Args:
@@ -288,7 +288,7 @@ std::vector<int> DynamixelClient::write_byte(std::vector<int> motor_ids, int val
     return errored_ids;
 }
 
-void DynamixelClient::sync_write(std::vector<int> motor_ids, Eigen::MatrixXd values,
+void DynamixelClient::sync_write(const std::vector<int> &motor_ids, const Eigen::MatrixXd &values,
                                  int address, int size) {
     /* Writes values to a group of motors.
 
@@ -351,7 +351,7 @@ void DynamixelClient::check_connected() {
 bool DynamixelClient::handle_packet_result(int comm_result,
                                            int dxl_error,
                                            int dxl_id,
-                                           std::string context) {
+                                           const std::string &context) {
     /* Handles the result from a communication request */
     std::string error_message = "null";
     if (comm_result != COMM_SUCCESS) {
@@ -387,7 +387,7 @@ int DynamixelClient::convert_to_unsigned(int value, int size) {
  **********************************************************************************/
 
 DynamixelReader::DynamixelReader(DynamixelClient *client,
-                                 std::vector<int> motor_ids,
+                                 const std::vector<int> &motor_ids,
                                  int address,
                                  int size)
     : client {client}
@@ -507,8 +507,7 @@ std::vector<Eigen::MatrixXd> DynamixelPosVelCurReader::read(int retries) {
     get_client()->check_connected();
     bool success{false};
     while (!success && retries >= 0) {
-        bool comm_result {operation.txRxPacket()};
-        success = get_client()->handle_packet_result(comm_result, 0, 0, "read");
+        success = get_client()->handle_packet_result(operation.txRxPacket(), 0, 0, "read");
         retries--;
     }
 

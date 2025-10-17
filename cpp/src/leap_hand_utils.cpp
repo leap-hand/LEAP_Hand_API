@@ -1,12 +1,7 @@
 /*
 Some utilities for LEAP Hand that help with converting joint angles between each convention.
 */
-#include <string>
-#include <vector>
-
-#include "leap_hand_utils.h"
-#include <Eigen>
-
+#include <leap_hand_utils/leap_hand_utils.h>
 
 /*
 Embodiments:
@@ -26,7 +21,7 @@ Eigen::MatrixXd angle_safety_clip(Eigen::MatrixXd joints) {
 }
 
 // Sometimes it's useful to constrain the thumb more heavily(you have to implement here), but regular usually works good.
-std::vector<Eigen::MatrixXd> LEAPsim_limits(std::string type) {
+std::vector<Eigen::MatrixXd> LEAPsim_limits(const std::string &type) {
     Eigen::MatrixXd sim_min;
     Eigen::MatrixXd sim_max;
 
@@ -42,12 +37,12 @@ std::vector<Eigen::MatrixXd> LEAPsim_limits(std::string type) {
 }
 
 // this goes from [-1, 1] to [lower, upper]
-Eigen::MatrixXd scale(Eigen::MatrixXd x, Eigen::MatrixXd lower, Eigen::MatrixXd upper) {
+Eigen::MatrixXd scale(const Eigen::MatrixXd &x, const Eigen::MatrixXd &lower, const Eigen::MatrixXd &upper) {
     return (0.5 * (x.array() + 1.0).matrix() * (upper - lower) + lower);
 }
 
 // this goes from [lower, upper] to [-1, 1]
-Eigen::MatrixXd unscale(Eigen::MatrixXd x, Eigen::MatrixXd lower, Eigen::MatrixXd upper) {
+Eigen::MatrixXd unscale(const Eigen::MatrixXd &x, const Eigen::MatrixXd &lower, const Eigen::MatrixXd &upper) {
     return (2.0 * x - upper - lower).array() / (upper - lower).array();
 }
 
@@ -72,13 +67,13 @@ Eigen::MatrixXd LEAPhand_to_sim_ones(Eigen::MatrixXd joints, bool hack_thumb) {
 /**********************************************************************************/
 
 // Sim LEAP hand to real leap hand  Sim is allegro-like but all 16 joints are usable.
-Eigen::MatrixXd LEAPsim_to_LEAPhand(Eigen::MatrixXd joints) {
+Eigen::MatrixXd LEAPsim_to_LEAPhand(const Eigen::MatrixXd &joints) {
     Eigen::MatrixXd ret_joints{joints.array() + 3.14159};
     return ret_joints;
 }
 
 // Real LEAP hand to sim leap hand  Sim is allegro-like but all 16 joints are usable.
-Eigen::MatrixXd LEAPhand_to_LEAPsim(Eigen::MatrixXd joints) {
+Eigen::MatrixXd LEAPhand_to_LEAPsim(const Eigen::MatrixXd &joints) {
     Eigen::MatrixXd ret_joints{joints.array() - 3.14159};
     return ret_joints;
 }
@@ -88,7 +83,7 @@ Eigen::MatrixXd LEAPhand_to_LEAPsim(Eigen::MatrixXd joints) {
 // Converts allegrohand radians to LEAP (radians)
 // Only converts the joints that match, all 4 of the thumb and the outer 3 for each of the other fingers
 // All the clockwise/counterclockwise signs are the same between the two hands.  Just the offset (mostly 180 degrees off)
-Eigen::MatrixXd allegro_to_LEAPhand(Eigen::MatrixXd joints, bool teleop, bool zeros) {
+Eigen::MatrixXd allegro_to_LEAPhand(const Eigen::MatrixXd &joints, bool teleop, bool zeros) {
     Eigen::MatrixXd ret_joints {joints.array() + 3.14159};
     if (zeros) {
         ret_joints(0) = ret_joints(4) = ret_joints(8) = 3.14;
@@ -101,7 +96,7 @@ Eigen::MatrixXd allegro_to_LEAPhand(Eigen::MatrixXd joints, bool teleop, bool ze
 }
 
 // Converts LEAP to allegrohand (radians)
-Eigen::MatrixXd LEAPhand_to_allegro(Eigen::MatrixXd joints, bool teleop, bool zeros) {
+Eigen::MatrixXd LEAPhand_to_allegro(const Eigen::MatrixXd joints, bool teleop, bool zeros) {
     Eigen::MatrixXd ret_joints {joints.array() - 3.14159};
     if (zeros) {
         ret_joints(0) = ret_joints(4) = ret_joints(8) = 0;
