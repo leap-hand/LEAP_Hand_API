@@ -6,9 +6,8 @@
 #include <set>
 #include <vector>
 
-#include "dynamixel_sdk.h"
-#include <Eigen>
-
+#include <dynamixel_sdk/dynamixel_sdk.h>
+#include <Eigen/Core>
 
 #define PROTOCOL_VERSION 2.0
 
@@ -72,8 +71,8 @@ private:
     std::set<DynamixelClient*> OPEN_CLIENTS;
 
 public:
-    DynamixelClient(std::vector<int> motor_ids,
-                    std::string port = "/dev/ttyUSB0",
+    DynamixelClient(const std::vector<int> &motor_ids,
+                    const std::string &port = "/dev/ttyUSB0",
                     int baudrate = 1000000,
                     bool lazy_connect = false,
                     float pos_scale = DEFAULT_POS_SCALE,
@@ -88,7 +87,7 @@ public:
     bool is_connected();
     void connect();
     void disconnect();
-    void set_torque_enabled(std::vector<int> motor_ids,
+    void set_torque_enabled(const std::vector<int> &motor_ids,
                             bool enabled,
                             int retries = -1,
                             float retry_interval = 0.25);
@@ -99,14 +98,14 @@ public:
     Eigen::MatrixXd read_vel();
     Eigen::MatrixXd read_cur();
 
-    void write_desired_pos(std::vector<int> motor_ids, Eigen::MatrixXd positions);
-    std::vector<int> write_byte(std::vector<int> motor_ids, int value, int address);
-    void sync_write(std::vector<int> motor_ids, Eigen::MatrixXd values, int address, int size);
+    void write_desired_pos(const std::vector<int> &motor_ids, Eigen::MatrixXd positions);
+    std::vector<int> write_byte(const std::vector<int> &motor_ids, int value, int address);
+    void sync_write(const std::vector<int> &motor_ids, const Eigen::MatrixXd &values, int address, int size);
     void check_connected();
     bool handle_packet_result(int comm_result,
                               int dxl_error = 0,
                               int dxl_id = 0,
-                              std::string context = "null");
+                              const std::string &context = "null");
     int convert_to_unsigned(int value, int size);
 };
 
@@ -126,7 +125,7 @@ public:
     */
     DynamixelReader(
         DynamixelClient *client,
-        std::vector<int> motor_ids,
+        const std::vector<int> &motor_ids,
         int address,
         int size
     );
