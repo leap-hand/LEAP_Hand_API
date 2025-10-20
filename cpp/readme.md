@@ -1,16 +1,26 @@
 ## Welcome to the LEAP Hand C++ SDK
 
-Thank you to Albert Paik (apaik458) at the University of Auckland for the first version!
+In order to use the LEAP Hand with C++ sdk please read the following information.
 
 #### Install
-- Build DynamixelSDK on $(YOUR_PLATFORM)
-- `cd ~/LEAP_Hand_API/cpp/dynamixel_sdk/build/$(YOUR_PLATFORM)`
-- `make`
-- `sudo make install`
+- Build DynamixelSDK on $(YOUR_PLATFORM) {linux32, linux64, macos} (default: linux64) and leap_hand control
 
-#### Usage
-- Build example main.cpp file
-- `cd ~/LEAP_Hand_API/cpp`
-- `make`
-- Run executable
-- `./main`
+```bash
+  cd ~/LEAP_Hand_API/cpp
+  mkdir build && cd build
+  cmake . # optional -DPLATEFORM={linux_sbc, linux32, linux64, mac}
+  make 
+  sudo make install
+```
+
+#### Usage 
+
+Please execute the following commands to run the test.
+
+```bash
+cd ~/LEAP_Hand_API/cpp/build/src
+./test_leap_hand
+```
+
+
+Thank you to Albert Paik (apaik458) at the University of Auckland for the first version!
