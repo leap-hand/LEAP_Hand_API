@@ -27,14 +27,16 @@ int main()
     // Register signals 
     signal(SIGINT, keyboard_interrupt);
 
-    LeapController leap_hand {};
+    LeapController leap_hand { "/dev/ttyUSB0" };
+    leap_hand.connect();
+
     while (1) {
         if (flag) {
             printf("\nShutting down\n");
             break;
         }
 
-        leap_hand.set_allegro(Eigen::MatrixXd::Zero(1, 16));
+        leap_hand.set_allegro(Eigen::MatrixXd::Zero(16, 1));
         std::cout << "Position: " << leap_hand.read_pos() << '\n';
     }
 }
