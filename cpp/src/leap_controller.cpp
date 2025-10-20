@@ -1,9 +1,12 @@
 #include <leap_hand_utils/leap_controller.h>
 
-LeapController::LeapController(const std::string &usb_port)
-: kP{600}, kI{0}, kD{200}, curr_lim{350}, prev_pos{allegro_to_LEAPhand(Eigen::VectorXd::Zero(16))},
-  curr_pos{allegro_to_LEAPhand(Eigen::VectorXd::Zero(16))}, pos{allegro_to_LEAPhand(Eigen::VectorXd::Zero(16))},
-  motors{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}, dxl_client{motors, usb_port, 4000000, false}
+LeapController::LeapController(const std::string &usb_port) :
+	kP{600}, kI{0}, kD{200}, curr_lim{350},
+	prev_pos{ allegro_to_LEAPhand(Eigen::VectorXd::Zero(16)) },
+	curr_pos{ allegro_to_LEAPhand(Eigen::VectorXd::Zero(16)) },
+	pos{ allegro_to_LEAPhand(Eigen::VectorXd::Zero(16)) },
+	motors{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
+	dxl_client{motors, usb_port, 1000000, false}
 {
 
 }

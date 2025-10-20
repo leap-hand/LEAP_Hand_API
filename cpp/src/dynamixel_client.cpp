@@ -465,7 +465,7 @@ Eigen::MatrixXd DynamixelReader::read(int retries) {
 
 void DynamixelReader::_initialize_data() {
     /* Initializes the cached data */
-    _data = Eigen::MatrixXd::Zero(1, motor_ids.size());
+    _data = Eigen::MatrixXd::Zero(motor_ids.size(), 1);
 }
 
 void DynamixelReader::_update_data(int index, int motor_id) {
@@ -540,9 +540,9 @@ std::vector<Eigen::MatrixXd> DynamixelPosVelCurReader::read(int retries) {
 
 void DynamixelPosVelCurReader::_initialize_data() {
     /* Initializes the cached data */
-    _pos_data = Eigen::MatrixXd::Zero(1, get_motor_ids().size());
-    _vel_data = Eigen::MatrixXd::Zero(1, get_motor_ids().size());
-    _cur_data = Eigen::MatrixXd::Zero(1, get_motor_ids().size());
+    _pos_data = Eigen::MatrixXd::Zero(get_motor_ids().size(), 1);
+    _vel_data = Eigen::MatrixXd::Zero(get_motor_ids().size(), 1);
+    _cur_data = Eigen::MatrixXd::Zero(get_motor_ids().size(), 1);
 }
 
 void DynamixelPosVelCurReader::_update_data(int index, int motor_id) {
@@ -625,8 +625,8 @@ std::vector<Eigen::MatrixXd> DynamixelPosVelReader::read(int retries) {
 
 void DynamixelPosVelReader::_initialize_data() {
     /* Initializes the cached data */
-    _pos_data = Eigen::MatrixXd::Zero(1, get_motor_ids().size());
-    _vel_data = Eigen::MatrixXd::Zero(1, get_motor_ids().size());
+    _pos_data = Eigen::MatrixXd::Zero(get_motor_ids().size(), 1);
+    _vel_data = Eigen::MatrixXd::Zero(get_motor_ids().size(), 1);
 }
 
 void DynamixelPosVelReader::_update_data(int index, int motor_id) {
@@ -706,7 +706,7 @@ Eigen::MatrixXd DynamixelPosReader::read(int retries) {
 
 void DynamixelPosReader::_initialize_data() {
     /* Initializes the cached data */
-    _pos_data = Eigen::MatrixXd::Zero(1, get_motor_ids().size());
+    _pos_data = Eigen::MatrixXd::Zero(get_motor_ids().size(), 1);
 }
 
 void DynamixelPosReader::_update_data(int index, int motor_id) {
@@ -783,7 +783,7 @@ Eigen::MatrixXd DynamixelVelReader::read(int retries) {
 
 void DynamixelVelReader::_initialize_data() {
     /* Initializes the cached data */
-    _vel_data = Eigen::MatrixXd::Zero(1, get_motor_ids().size());
+    _vel_data = Eigen::MatrixXd::Zero(get_motor_ids().size(), 1);
 }
 
 void DynamixelVelReader::_update_data(int index, int motor_id) {
@@ -860,7 +860,7 @@ Eigen::MatrixXd DynamixelCurReader::read(int retries) {
 
 void DynamixelCurReader::_initialize_data() {
     /* Initializes the cached data */
-    _cur_data = Eigen::MatrixXd::Zero(1, get_motor_ids().size());
+    _cur_data = Eigen::MatrixXd::Zero(get_motor_ids().size(), 1);
 }
 
 void DynamixelCurReader::_update_data(int index, int motor_id) {
