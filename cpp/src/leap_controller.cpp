@@ -67,6 +67,12 @@ double LeapController::getJointPose(int idx)
   return read_pos()[idx];
 }
 
+std::tuple<double, double, double> LeapController::getJointData(int idx)
+{
+  const auto & pvc = read_pos_vel_cur();
+  return {pvc[0](0, idx) , pvc[1](0, idx), pvc[2](0, idx)};
+}
+
 // allegro compatibility
 void LeapController::set_allegro(Eigen::VectorXd pose)
 {
