@@ -11,6 +11,11 @@ LeapController::LeapController(const std::string &usb_port) :
 
 }
 
+LeapController::~LeapController()
+{
+  disconnect();
+}
+
 void LeapController::connect()
 {
   dxl_client.connect();
@@ -29,6 +34,7 @@ void LeapController::connect()
 
 void LeapController::disconnect()
 {
+  dxl_client.set_torque_enabled(motors, false);
   dxl_client.disconnect();
 }
 
@@ -70,7 +76,7 @@ double LeapController::getJointPose(int idx)
 std::tuple<double, double, double> LeapController::getJointData(int idx)
 {
   const auto & pvc = read_pos_vel_cur();
-  return {pvc[0](0, idx) , pvc[1](0, idx), pvc[2](0, idx)};
+  return {pvc[0](idx, 0) , pvc[1](idx, 0), pvc[2](idx, 0)};
 }
 
 // allegro compatibility
