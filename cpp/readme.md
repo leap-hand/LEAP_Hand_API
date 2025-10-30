@@ -15,12 +15,25 @@ In order to use the LEAP Hand with C++ sdk please read the following information
 
 #### Usage 
 
+To use leap_hand_client in your project please consider adding the following line to your cmake :
+
+```cmake
+find_package(leap_hand_client REQUIRED)
+
+add_library(test SHARED src/test.cpp)
+target_link_libraries(test PUBLIC leap_hand_client::dynamixel_client)
+```
+
+
+#### Test
+
 Please execute the following commands to run the test.
 
 ```bash
 cd ~/LEAP_Hand_API/cpp/build/src
 ./test_leap_hand
 ```
+
 
 
 Thank you to Albert Paik (apaik458) at the University of Auckland for the first version!

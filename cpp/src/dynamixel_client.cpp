@@ -496,6 +496,7 @@ DynamixelPosVelCurReader::DynamixelPosVelCurReader(DynamixelClient *client,
     , vel_scale {vel_scale}
     , cur_scale {cur_scale}
 {
+    _initialize_data();
 }
 
 std::vector<float> DynamixelPosVelCurReader::_get_scale() {

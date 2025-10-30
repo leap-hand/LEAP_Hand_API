@@ -30,13 +30,17 @@ int main()
     LeapController leap_hand { "/dev/ttyUSB0" };
     leap_hand.connect();
 
+    leap_hand.setJointPose(1, 3.5);
+    leap_hand.setJointPose(2, 3.5);
+
     while (1) {
         if (flag) {
             printf("\nShutting down\n");
             break;
         }
 
-        leap_hand.set_allegro(Eigen::MatrixXd::Zero(16, 1));
-        std::cout << "Position: " << leap_hand.read_pos() << '\n';
+        std::cout << "Position :" << std::get<0>(leap_hand.getJointData(1)) << std::endl;
+        std::cout << "Velocity :" << std::get<1>(leap_hand.getJointData(1)) << std::endl;
+        std::cout << "Current :" << std::get<2>(leap_hand.getJointData(1)) << std::endl << std::endl;
     }
 }

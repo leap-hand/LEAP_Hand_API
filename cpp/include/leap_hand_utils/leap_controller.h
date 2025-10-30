@@ -19,6 +19,8 @@ private:
 public:
     LeapController(const std::string &usb_port = "/dev/ttyUSB0");
 
+    ~LeapController();
+
     /**
      * @brief Connect leap hand
      * 
