@@ -60,7 +60,7 @@ include(GNUInstallDirs)
 
 install(
   TARGETS dynamixel_client
-  EXPORT dynamixel_clientTargets
+  EXPORT leap_hand_clientTargets
   RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
@@ -69,29 +69,29 @@ install(
 install(DIRECTORY include/leap_hand_utils DESTINATION include)
 
 # Export the library for use with find_package
-install(EXPORT dynamixel_clientTargets
-  FILE dynamixel_clientTargets.cmake
-  NAMESPACE dynamixel_client::
-  DESTINATION lib/cmake/dynamixel_client
+install(EXPORT leap_hand_clientTargets
+  FILE leap_hand_clientTargets.cmake
+  NAMESPACE leap_hand_client::
+  DESTINATION lib/cmake/leap_hand_client
 )
 
 # === Config file for find_package ===
 include(CMakePackageConfigHelpers)
 
 write_basic_package_version_file(
-  "${CMAKE_CURRENT_BINARY_DIR}/dynamixel_clientConfigVersion.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/leap_hand_clientConfigVersion.cmake"
   VERSION ${PROJECT_VERSION}
   COMPATIBILITY AnyNewerVersion
 )
 
 configure_package_config_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/cmake/dynamixel_clientConfig.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/dynamixel_clientConfig.cmake"
-  INSTALL_DESTINATION lib/cmake/dynamixel_client
+  "${CMAKE_CURRENT_SOURCE_DIR}/cmake/leap_hand_clientConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/leap_hand_clientConfig.cmake"
+  INSTALL_DESTINATION lib/cmake/leap_hand_client
 )
 
 install(FILES
-  "${CMAKE_CURRENT_BINARY_DIR}/dynamixel_clientConfig.cmake"
-  "${CMAKE_CURRENT_BINARY_DIR}/dynamixel_clientConfigVersion.cmake"
-  DESTINATION lib/cmake/dynamixel_client
+  "${CMAKE_CURRENT_BINARY_DIR}/leap_hand_clientConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/leap_hand_clientConfigVersion.cmake"
+  DESTINATION lib/cmake/leap_hand_client
 )
